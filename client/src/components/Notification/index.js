@@ -7,22 +7,22 @@ const Notification = () => {
 
     return (
         <>            
-            <div data-reach-dialog-overlay="true" id ="dhCkyp2" class="dhCkyp2 iiHqcD" style={{opacity:1}}>
+            <div data-reach-dialog-overlay="true" id ="dhCkyp2" className="dhCkyp2 iiHqcD" style={{opacity:1}}>
                     <div role="dialog" aria-modal="true" data-reach-dialog-content="true" tabindex="-1"
-                        aria-labelledby="wallet-modal-label" class="dWodJw1" hidden="">
-                        <button class="iHaOcn1"></button>
-                        <div class="iMWOje1">
-                            <div class="gpVQzW1">
-                                <h4 class="kQNlUO1">
-                                    <div class="ejJoEn1" style={{textAlign:'center'}}>Welcome</div>
+                        aria-labelledby="wallet-modal-label" className="dWodJw1" hidden="">
+                        <button className="iHaOcn1"></button>
+                        <div className="iMWOje1">
+                            <div className="gpVQzW1">
+                                <h4 className="kQNlUO1">
+                                    <div className="ejJoEn1" style={{textAlign:'center'}}>Welcome</div>
                                 </h4>
                                 
-                                <div class="jOXgFj1">
+                                <div className="jOXgFj1">
                                     <div style={{textAlign:'center'}}>
                                         <p>You Have Successfully Logged in!</p>
                                     </div>
                                     <div style={{textAlign:'center', paddingTop:'2rem'}}>
-                                        <button type="button" id="btn_welcome" class="welcome-ok">Ok</button>
+                                        <button type="button" id="btn_welcome" className="welcome-ok">Ok</button>
                                     </div>
                                     
                                 </div>
@@ -31,22 +31,22 @@ const Notification = () => {
                     </div>
                 </div>
 
-                <div data-reach-dialog-overlay="true" id ="dhCkyp3" class="dhCkyp3 iiHqcD" style={{opacity:1}}>
+                <div data-reach-dialog-overlay="true" id ="dhCkyp3" className="dhCkyp3 iiHqcD" style={{opacity:1}}>
                     <div role="dialog" aria-modal="true" data-reach-dialog-content="true" tabindex="-1"
-                        aria-labelledby="wallet-modal-label" class="dWodJw1" hidden="">
-                        <button class="iHaOcn1"></button>
-                        <div class="iMWOje1">
-                            <div class="gpVQzW1">
-                                <h4 class="kQNlUO1">
-                                    <div class="ejJoEn1" style={{textAlign:'center'}}>Notification</div>
+                        aria-labelledby="wallet-modal-label" className="dWodJw1" hidden="">
+                        <button className="iHaOcn1"></button>
+                        <div className="iMWOje1">
+                            <div className="gpVQzW1">
+                                <h4 className="kQNlUO1">
+                                    <div className="ejJoEn1" style={{textAlign:'center'}}>Notification</div>
                                 </h4>
                                 
-                                <div class="jOXgFj1">
+                                <div className="jOXgFj1">
                                     <div style={{textAlign:'center'}}>
                                         <p id="noti_context">Please check your balance!</p>
                                     </div>
                                     <div style={{textAlign:'center', paddingTop:'2rem'}}>
-                                        <button type="button" id="btn_notification" class="welcome-ok">Ok</button>
+                                        <button type="button" id="btn_notification" className="welcome-ok">Ok</button>
                                     </div>
                                     
                                 </div>

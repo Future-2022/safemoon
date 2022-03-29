@@ -9,53 +9,51 @@ const Header = () => {
         <>
             <header>
                 <div className="logo">
-                    <img src="img/SafeMoon_Logo.svg.png" alt="Logo" />
-
-                    <h1>SafeMoonSwap</h1>
-
-                    <p>Beta</p>
+                    <img className='mb-1' src="img/SafeMoon_Logo.svg.png" alt="Logo" />
+                    <h1 style={{fontWeight:'700'}}>SafeMoonSwap</h1>
+                    <p className='mb-0'>Beta</p>
                 </div>
-                <div class="rest">
+                <div className="rest">
                     <img src="img/gas.f1920a4b.svg" alt="gas" />
 
-                    <div class="rates">
-                        <div class="rate">
-                            <div class="ticker">
+                    <div className="rates">
+                        <div className="rate">
+                            <div className="ticker">
                                 SafeMoon&nbsp;
                                     <span>
-                                        <i class="fas fa-dollar-sign" aria-hidden="true"></i>
+                                        <i className="fas fa-dollar-sign" aria-hidden="true"></i>
                                         0.00247
                                     </span>
                             </div>
-                                <span class="percent">
-                                    <i class="fas fa-caret-up" aria-hidden="true"></i>&nbsp;9,05
+                                <span className="percent">
+                                    <i className="fas fa-caret-up" aria-hidden="true"></i>&nbsp;9,05
                                 </span>
                         </div>
-                        <div class="rate">
-                            <div class="ticker">AST&nbsp;
-                                <span><i class="fas fa-dollar-sign" aria-hidden="true"></i>21.02</span>
+                        <div className="rate">
+                            <div className="ticker">AST&nbsp;
+                                <span><i className="fas fa-dollar-sign" aria-hidden="true"></i>21.02</span>
                             </div>
-                                <span class="percent">
-                                    <i class="fas fa-caret-up" aria-hidden="true"></i>&nbsp;4,18
+                                <span className="percent">
+                                    <i className="fas fa-caret-up" aria-hidden="true"></i>&nbsp;4,18
                                 </span>
                         </div>
-                        <div class="rate">
-                            <div class="ticker">STAR&nbsp;
-                                <span><i class="fas fa-dollar-sign" aria-hidden="true"></i>0.0000002</span>
+                        <div className="rate">
+                            <div className="ticker">STAR&nbsp;
+                                <span><i className="fas fa-dollar-sign" aria-hidden="true"></i>0.0000002</span>
                             </div>
-                            <span class="percent"><i class="fas fa-caret-up" aria-hidden="true"></i>&nbsp;0,00</span>
+                            <span className="percent"><i className="fas fa-caret-up" aria-hidden="true"></i>&nbsp;0,00</span>
                         </div>
                     </div>
-                    <div class="dollar">
-                        <i class="fas fa-dollar-sign" aria-hidden="true"></i>
+                    <div className="dollar">
+                        <i className="fas fa-dollar-sign" aria-hidden="true"></i>
                     </div>
                     <button type="button" id="connect_wallet" style={{fontFamily:'Open Sans', fontWeight:'bold'}}>Connect your wallet</button>
 
                     
                     <div id="drop-down" style={{float:'right', marginRight:'70px', display:'none'}}> 
-                        <button id="drop" >Balance <i class="fas fa-caret-down" aria-hidden="true"></i></button> 
+                        <button id="drop" >Balance <i className="fas fa-caret-down" aria-hidden="true"></i></button> 
                         <div id="dropdown-menu"> 
-                            <p class="show-balance">Asteroids AST : <span class="shib-balance">0</span></p> 
+                            <p className="show-balance mb-0">Asteroids AST : <span className="shib-balance">0</span></p> 
                         </div> 
                     </div> 
                 </div>
