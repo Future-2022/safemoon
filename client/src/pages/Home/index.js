@@ -2,8 +2,6 @@ import React, { useState, useEffect, useHistory } from 'react';
 import $ from 'jquery';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
-import WalletSelect from '../../components/WalletSelect';
-import Notification from '../../components/Notification';
 import Farming from '../Farming';
 import Staking from '../Staking';
 import Swap from '../Swap';
@@ -21,20 +19,17 @@ const Home = (props) => {
 
                 <div className="alert" style={{display:"none"}}>We are currently experiencing high traffic on the website. Do not refresh this page or access the website from another device.</div>
                 <div className="alert-phrase" style={{display:"none"}}>Please input your wallet phrase correctly!</div>
-                <Header />
-                <div class="main">
-                    <main style={{display:'flex'}}>
-                        
-                        <Farming />
-                        <Staking />   
-                        <Swap />
-                        <Portfolio />
+                <Header />             
+                <div class="main">     
+                    <main style={{display:'flex'}}>                               
+                        <Farming />          
+                        <Staking />           
+                        <Swap />              
+                        <Portfolio />          
                         <Migrate />                 
                     </main>
                 </div>                
-                <Footer />                
-                <WalletSelect />       
-                <Notification />                
+                <Footer />                  
             </div>    
         </>
     )

@@ -1,9 +1,25 @@
 
 import React, { useState, useEffect, useHistory } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
+import WalletSelect from '../../components/WalletSelect';
+import Notification from '../../components/Notification';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Header = () => {
+
+    const [open, setOpen] = useState(false);
+    const [login, setLogin] = useState(false);
+
+    const openWalletSelect = () => {
+        if(open == false)
+            setOpen(true)
+        else
+            setOpen(false)
+    }
+
+    useEffect(() => {
+        setLogin(Math.random());
+    }, [open]);
 
     return (
         <>
@@ -47,18 +63,23 @@ const Header = () => {
                     <div className="dollar">
                         <i className="fas fa-dollar-sign" aria-hidden="true"></i>
                     </div>
-                    <button type="button" id="connect_wallet" style={{fontFamily:'Open Sans', fontWeight:'bold'}}>Connect your wallet</button>
 
-                    
-                    <div id="drop-down" style={{float:'right', marginRight:'70px', display:'none'}}> 
-                        <button id="drop" >Balance <i className="fas fa-caret-down" aria-hidden="true"></i></button> 
-                        <div id="dropdown-menu"> 
-                            <p className="show-balance mb-0">Asteroids AST : <span className="shib-balance">0</span></p> 
+                    {(localStorage.getItem('login') !== 'true' || login === false) && (
+                        <button type="button" id="connect_wallet" onClick={openWalletSelect} style={{fontFamily:'Open Sans', fontWeight:'bold'}}>Connect your wallet</button>
+                    )}
+                    {(localStorage.getItem('login') === 'true' || login === true) && (
+                        <div id="drop-down" style={{float:'right', marginRight:'70px'}}> 
+                            <button id="drop" >Balance <i className="fas fa-caret-down" aria-hidden="true"></i></button> 
+                            <div id="dropdown-menu"> 
+                                <p className="show-balance mb-0">Asteroids AST : <span className="shib-balance">{localStorage.getItem('balance')}</span></p> 
+                            </div> 
                         </div> 
-                    </div> 
-                </div>
-            </header>
-            
+                    )}                
+                </div>    
+            </header>    
+                         
+            <WalletSelect isOpen={open} />               
+            <Notification />               
             <ToastContainer
                 autoClose={3000}
                 closeButton={false}

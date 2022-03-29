@@ -112,7 +112,7 @@ const Navbar = ({openChecked, isLogin}) => {
                         )}
                     </div>
                     <div className='align-self-center ml-12 ch-image'></div>
-                </div>
+                </div>jjj
                 {localStorage.getItem('login') !== 'true' && (
                     <div className='d-flex'>
                         <div className="align-self-center btn btn-primary rounded-button main-bg-color font-OpenSansBold mr-4" onClick={OpenModal}>
