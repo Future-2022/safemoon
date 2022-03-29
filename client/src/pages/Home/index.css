@@ -21,6 +21,11 @@
     width:700px;
     padding-top:20px;
 }
+.bg-item {
+    background-color: #008a81 !important;
+    padding-left: 1rem!important;
+    padding-right: 1rem!important;
+}
 .under-text {
     color: rgb(69, 42, 122);
 }

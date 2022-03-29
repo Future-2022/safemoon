@@ -1,6 +1,9 @@
 body {
     background-color: rgb(184, 248, 255);
 }
+footer>a {
+    font-weight: 500;
+}
 
 ::-webkit-scrollbar {
     width: 10px;

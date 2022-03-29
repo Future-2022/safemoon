@@ -11,7 +11,7 @@ import logo_default from '../../img/quotation/156_25.svg';
 import MyModal from '../../components/Modal';
 import SignModal from '../../components/Modal/signModal';
 import PoolIcon from '../../img/icons/pool-icon.png';
-import './index.css';
+// import './index.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
