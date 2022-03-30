@@ -1,5 +1,5 @@
 const express = require('express');
-const connectDB = require('./config/db');
+const connectDB = require('./config/mySql');
 const path = require('path');
 var bodyParser = require('body-parser');
 
@@ -17,8 +17,6 @@ const cors = require('cors');
 app.use(cors({
     origin: '*'
 }));
-// Connect Database
-connectDB();
 
 // Init Middleware
 app.use(express.json());

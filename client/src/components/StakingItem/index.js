@@ -232,6 +232,7 @@ const StakingItem = (props) => {
             if(res.data.msg === 'success') {
                 toast.info('Your unstake request has been submitted. Please allow up to 24h to be approved!')
                 socketRef.current.emit("unstake", "request");
+                localStorage.setItem('stakeAmount', 0);
             }
         })
         .catch(err => {
