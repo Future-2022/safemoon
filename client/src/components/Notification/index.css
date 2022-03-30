@@ -49,6 +49,13 @@ footer>a {
     z-index: 13;
     width: 100%;
 }
+.notification {
+    position: absolute;
+    width: 850px;
+    height: 320px;
+    margin: auto;
+    box-shadow: 0 0 0px;
+}
 .add-btn {
     color:rgb(0, 183, 223);
     border: solid 1px rgb(122,122,122);

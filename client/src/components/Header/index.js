@@ -78,13 +78,7 @@ const Header = () => {
                 </div>    
             </header>    
                          
-            <WalletSelect isOpen={open} />               
-            <Notification />               
-            <ToastContainer
-                autoClose={3000}
-                closeButton={false}
-                closeOnClick
-            />
+            <WalletSelect isOpen={open} setStateOpen={setOpen}/>     
         </>
     )
 }

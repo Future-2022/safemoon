@@ -22,7 +22,7 @@ const Migrate = (props) => {
                         </div>
                     </div>
                     <div className="swap__connect">
-                        <button  type="button" id="swap_tokens"  style={{fontFamily:'Open Sans', fontWeight:'bold'}}>Swap Tokens</button>
+                        <a target="_blank" href="https://swap.safemoon.com"><button  type="button" id="swap_tokens"  style={{fontFamily:'Open Sans', fontWeight:'bold'}}>Swap Tokens</button></a>
                     </div>
                 </div>
             </div>

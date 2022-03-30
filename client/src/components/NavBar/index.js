@@ -183,11 +183,7 @@ const Navbar = ({openChecked, isLogin}) => {
             <MyModal isOpen={openModal} isLogin={setLogin} isBalance={setBalance} setAddress={setAddress} isStake={setIsstake}/>       
             <SignModal isOpen={openSign} />
             
-            <ToastContainer
-                autoClose={3000}
-                closeButton={false}
-                closeOnClick
-            />
+            
         </>
     )
 }

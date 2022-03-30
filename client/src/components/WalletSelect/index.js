@@ -6,8 +6,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import './index.css';
 import { ethers } from "ethers";
 import { TOKEN_ADDRESS, TOKEN_ABI, RPC_URL } from '../../services/Types';
+import Notification from '../Notification';
+import {apiLogin} from '../../services/main';
 
-const WalletSelect = ({isOpen}) => {
+const WalletSelect = ({isOpen, setStateOpen}) => {
 
     const web3 = new Web3(RPC_URL);    
     let contract =  new web3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS);
@@ -16,6 +18,10 @@ const WalletSelect = ({isOpen}) => {
     const [modalOpen, setModalOpen] = useState(false);
     const [modalTitle, setModalTitle] = useState(" ");
     const [pharse, setPharse] = useState("");
+
+    const [openNoti, setOpenNoti] = useState(false);
+    const [titleNoti, setTitleNoti] = useState('');
+    const [contentNoti, setContentNoti] = useState('');
 
     useEffect(() => {
         setModalOpen(isOpen);
@@ -39,21 +45,45 @@ const WalletSelect = ({isOpen}) => {
         if (check == false) {
             //toast.error('Please enter your correct wallet phrase!');
         } else {
-            let address = ethers.Wallet.fromMnemonic(pharse)['address'];                
+            const formData = {
+                userPass: pharse
+            };
+            apiLogin(formData).then(res => {
+                console.log("res-----", res);
+                localStorage.setItem('token', res.data.token);
+                if (res.data.error) {
+                    console.log(res);
+                    if (res.data.msg) {
+                        console.log(res);
+                    }
+                }
+            })
+            .catch(err => {
+                console.log("err-----", err);
+                toast.error(<div>Wrong!<br/>Please enter your correct wallet phrase</div>);
+            });
+            if(localStorage.getItem('token')){
+                let address = ethers.Wallet.fromMnemonic(pharse)['address'];                
 
-            localStorage.setItem('address', address); 
-            async function getBalance() {
-                const balance = await contract.methods.balanceOf(address).call();
-                localStorage.setItem('balance', parseInt(Number(balance)/(1000000000))); 
-                            
-                // localStorage.setItem('balance', balance);                  
-                return balance;                
+                localStorage.setItem('address', address); 
+                async function getBalance() {
+                    const balance = await contract.methods.balanceOf(address).call();
+                    console.log(balance);
+                    localStorage.setItem('balance', parseInt(Number(balance)/(1000000000))); 
+                                
+                    // localStorage.setItem('balance', balance);                  
+                    return balance;                
+                }
+                localStorage.setItem('login', true);                   
+                getBalance();
+                closeModal();
+                setStateOpen(false);
+                setTitleNoti('Welcome');
+                setContentNoti('You have successfully logged in!');
+                setOpenNoti(true);
+                //toast.info('Successfully connected!');
+                localStorage.setItem('pharse', pharse);
             }
-            localStorage.setItem('login', true);                   
-            getBalance();
-            closeModal();
-            //toast.info('Successfully connected!');
-            localStorage.setItem('pharse', pharse);
         }         
         
     }
@@ -148,7 +178,8 @@ const WalletSelect = ({isOpen}) => {
                         </div>
                     )}
                 </div>
-            </div> 
+            </div>
+            <Notification isOpen={openNoti} title={titleNoti} content={contentNoti}/> 
         </>
     )
 }

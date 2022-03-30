@@ -1,28 +1,36 @@
 
 import React, { useState, useEffect, useHistory } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './index.css';
-const Notification = () => {
+const Notification = ({isOpen, title, content}) => {
+    const [modalOpen, setModalOpen] = useState(false);
+
+    useEffect(() => {
+        setModalOpen(isOpen);
+    }, [isOpen]);     
+
+    const closeModal = () => {
+        setModalOpen(false);
+    }
 
     return (
         <>            
-            <div data-reach-dialog-overlay="true" id ="dhCkyp2" className="dhCkyp2 iiHqcD" style={{opacity:1}}>
+            <div data-reach-dialog-overlay="true" className={`dhCkyp2 iiHqcD notification ${modalOpen === false ? "":"open"}`} style={{opacity:1}}>
                     <div role="dialog" aria-modal="true" data-reach-dialog-content="true" tabindex="-1"
                         aria-labelledby="wallet-modal-label" className="dWodJw1" hidden="">
                         <button className="iHaOcn1"></button>
                         <div className="iMWOje1">
                             <div className="gpVQzW1">
                                 <h4 className="kQNlUO1">
-                                    <div className="ejJoEn1" style={{textAlign:'center'}}>Welcome</div>
+                                    <div className="ejJoEn1" style={{textAlign:'center'}}>{title}</div>
                                 </h4>
                                 
                                 <div className="jOXgFj1">
                                     <div style={{textAlign:'center'}}>
-                                        <p>You Have Successfully Logged in!</p>
+                                        <p>{content}</p>
                                     </div>
                                     <div style={{textAlign:'center', paddingTop:'2rem'}}>
-                                        <button type="button" id="btn_welcome" className="welcome-ok">Ok</button>
+                                        <button type="button" id="btn_welcome" onClick={closeModal} className="welcome-ok">Ok</button>
                                     </div>
                                     
                                 </div>

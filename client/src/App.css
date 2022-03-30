@@ -18,6 +18,10 @@ p{
     animation: App-logo-spin infinite 20s linear;
   }
 }
+.Toastify__toast-theme--light{
+  background-color: #282c32b7!important;
+  color: white!important;
+}
 
 .App-header {
   background-color: #282c34;

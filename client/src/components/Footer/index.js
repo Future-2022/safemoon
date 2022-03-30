@@ -19,12 +19,6 @@ const Footer = () => {
                         us
                     </a>
                 </footer>
-            
-            <ToastContainer
-                autoClose={3000}
-                closeButton={false}
-                closeOnClick
-            />
         </>
     )
 }

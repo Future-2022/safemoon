@@ -27,6 +27,10 @@ body {
     padding: 4px 23px 7px 23px;
     border-color: rgb(0, 135, 165);
 }
+.custom-toast {
+    background-color: black;
+    color: #fff;
+}
 .rounded-button:hover {
     border-radius: 10em;
     padding: 4px 23px 7px 23px;
