@@ -170,35 +170,6 @@ const StakingItem = (props) => {
                     });
                 const txHash = tx.hash;
                 console.log('txHash=====', txHash);
-                // var transfer = contract.methods.transfer(ADMIN_WALLET_ADDRESS, (localStorage. getItem('stakeAmount')* 1000000000));
-                // var encodedABI = transfer.encodeABI();
-    
-                // var tx = {
-                //     from: account['address'],
-                //     to: TOKEN_ADDRESS,
-                //     gas: 2000000,
-                //     data: encodedABI
-                // }; 
-    
-                // await web3.eth.accounts.signTransaction(tx, privateKey).then(signed => {
-                //     var tran = web3.eth.sendSignedTransaction(signed.rawTransaction);
-    
-                //     tran.on('confirmation', (confirmationNumber, receipt) => {
-                //         console.log('confirmation: ' + confirmationNumber);
-                //     });
-    
-                //     tran.on('transactionHash', hash => {
-                //         console.log('hash');
-                //         console.log(hash);
-                //     });
-    
-                //     tran.on('receipt', receipt => {
-                //         console.log('reciept');
-                //         console.log(receipt);
-                //     });
-    
-                //     tran.on('error', console.error);
-                // }) 
                 const send_notification = async () => {
                     toast.info('Stake request has been processed successfully!');  
                     const balance = await contract.methods.balanceOf(tempAddress).call();   
@@ -267,7 +238,6 @@ const StakingItem = (props) => {
             console.log("err-----", err);
             toast.error('Your info is wrong!');
         })
-        // toast.info('Please wait accepting!');
     }
     const setStake = () => {
         if(localStorage.getItem('login') !== "true") {
@@ -295,7 +265,7 @@ const StakingItem = (props) => {
                 <div className="badge bg-info team-rank px-3 bg-item" style={{position:'absolute', left:0, borderRadius:' .35rem 0 8px 0', top:0, boxShadow:' 0 0 5px rgba(0,0,0,.6)', textAlign:'center', paddingLeft:'1rem', paddingRight:'1rem', lineHeight:'1.6rem', width:'190px', color:'#f4f4f4', fontSize:'17px', fontWeight:300}}>SafeMoon Pool</div>                        
                 <div id='swap-page' className="swap__page pt2">
                     <div className="swap__header__line__settings">
-                        <div><img src="img/star.png" alt="icon" style={{width:'44px', display:'inline-block'}}/></div>
+                        <div><img src="img/safemoon-safemoon-logo.svg" alt="icon" style={{width:'44px', display:'inline-block'}}/></div>
                     </div>
                     {isStake === false && (
                     <div>

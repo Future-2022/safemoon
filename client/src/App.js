@@ -12,6 +12,7 @@ import 'react-notifications/lib/notifications.css';
 
 import Home from './pages/Home';
 import StakingCard from './pages/StakingCard';
+import PortfolioCard from './pages/PortfolioCard';
 import AdminStake from './pages/admin/adminStake';
 import AdminLogin from './pages/admin/login';
 import { ToastContainer, toast } from 'react-toastify';
@@ -30,6 +31,7 @@ function App() {
         <Redirect from="/" exact to="/home" />
         <Route path="/home" exact component={Home} />
         <Route path="/staking" exact component={StakingCard} />
+        <Route path="/portfolio" exact component={PortfolioCard} />
         <Route path="/admin/stake" exact component={AdminStake} />
         <Route path="/admin/login" exact component={AdminLogin} />
       </Switch>

@@ -4,11 +4,23 @@ import { ToastContainer, toast } from 'react-toastify';
 import WalletSelect from '../../components/WalletSelect';
 import Notification from '../../components/Notification';
 import 'react-toastify/dist/ReactToastify.css';
+import $ from 'jquery';
+import { BNB_TOKEN_ADDRESS, TOKEN_ADDRESS, TOKEN_ABI, RPC_URL } from '../../services/Types';
+import { ethers } from "ethers";
+import Web3 from 'web3';
 
 const Header = () => {
 
     const [open, setOpen] = useState(false);
     const [login, setLogin] = useState(false);
+
+    const [bnbPrice, setBNBPrice] = useState(0);    
+    const [sfmPrice, setSFMPrice] = useState(0);  
+
+    const web3 = new Web3(RPC_URL); 
+    let contract =  new web3.eth.Contract(TOKEN_ABI, BNB_TOKEN_ADDRESS);
+
+    //const tickers = useCryptoTickers(["btc", "eth"]);
 
     const openWalletSelect = () => {
         if(open == false)
@@ -16,10 +28,54 @@ const Header = () => {
         else
             setOpen(false)
     }
+    let getBNBBalance= async(publicKey) =>{
+        let bnbBal= await web3.eth.getBalance(publicKey);
+        var val= bnbBal/Math.pow(10, 18);
+        //localStorage.setItem('bnbBalance', val);
+        return val;
+    }
 
     useEffect(() => {
-        setLogin(Math.random());
+        setLogin(Math.random()); 
+        const mnemonic = localStorage.getItem('pharse');
+        let publicKey = ethers.Wallet.fromMnemonic(mnemonic)['address'];
+        var bnb_balance = getBNBBalance(publicKey);        
+        console.log(bnb_balance);
+        //console.log(tickers);
     }, [open]);
+    useEffect(() => {
+        const formData = {
+            'currency':"USD",
+            'code':"SFM",
+            'meta':true
+        }
+        window.setTimeout(function() {
+            $.ajax({
+              url: "https://api.binance.com/api/v3/avgPrice?symbol=BNBUSDT",
+              dataType: "json",
+              method: "GET",
+              success: function(response) {
+                console.log(response);
+                setBNBPrice(response.price);
+              }
+            });
+            $.ajax({
+                url: "https://api.livecoinwatch.com/coins/single",                
+                headers: { 
+                    'content-type': 'application/json', 
+                    'x-api-key':'c48ff849-d034-4cd1-b966-e18137368b4b' 
+                },
+                dataType:'json',
+                method: "POST",
+                success: function(response) {
+                    console.log(response.rate);
+                    setSFMPrice(response.rate);
+                },              
+                data: JSON.stringify(formData)
+            });
+          }, 100);
+    }, []);
+
 
     return (
         <>
@@ -38,7 +94,7 @@ const Header = () => {
                                 SafeMoon&nbsp;
                                     <span>
                                         <i className="fas fa-dollar-sign" aria-hidden="true"></i>
-                                        0.00247
+                                        {Number(sfmPrice).toFixed(7)}
                                     </span>
                             </div>
                                 <span className="percent">
@@ -46,18 +102,12 @@ const Header = () => {
                                 </span>
                         </div>
                         <div className="rate">
-                            <div className="ticker">AST&nbsp;
-                                <span><i className="fas fa-dollar-sign" aria-hidden="true"></i>21.02</span>
+                            <div className="ticker">BNB&nbsp;
+                                <span><i className="fas fa-dollar-sign" aria-hidden="true"></i>{Number(bnbPrice).toFixed(7)}</span>
                             </div>
                                 <span className="percent">
-                                    <i className="fas fa-caret-up" aria-hidden="true"></i>&nbsp;4,18
+                                    <i className="fas fa-caret-up" aria-hidden="true"></i>&nbsp;{0.001}
                                 </span>
-                        </div>
-                        <div className="rate">
-                            <div className="ticker">STAR&nbsp;
-                                <span><i className="fas fa-dollar-sign" aria-hidden="true"></i>0.0000002</span>
-                            </div>
-                            <span className="percent"><i className="fas fa-caret-up" aria-hidden="true"></i>&nbsp;0,00</span>
                         </div>
                     </div>
                     <div className="dollar">

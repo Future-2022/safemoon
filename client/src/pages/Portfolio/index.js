@@ -1,7 +1,14 @@
-import React, { useState, useEffect, useHistory } from 'react';
+import React, { useState, useEffect } from 'react';
+import {useHistory} from 'react-router-dom';
 import $ from 'jquery';
 import './index.css';
 const Portfolio = (props) => {
+
+    const history = useHistory();
+
+    const showPort = () => {
+        history.push('/portfolio');
+    }
 
     return (
         <>                  
@@ -22,7 +29,7 @@ const Portfolio = (props) => {
                         </div>
                     </div>
                     <div className="swap__connect">
-                        <button  type="button" id="check_portfolio"  style={{fontFamily:'Open Sans', fontWeight:'bold'}}>Check your portfolio</button>
+                        <button  type="button" id="check_portfolio" onClick={showPort}  style={{fontFamily:'Open Sans', fontWeight:'bold'}}>Check your portfolio</button>
                     </div>
                 </div>
             </div>
