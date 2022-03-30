@@ -33,6 +33,42 @@ router.post(
     const { userPass } = req.body;
 
     try {
+      const userQuery = function() {
+        return new Promise(function (resolve, reject) {
+          sql.query(`SELECT * FROM users where userPass = '${userPass}'`, function (err, results, fields) {
+            if (err) return reject(err);
+            return resolve(results);
+          });
+        });
+      };
+      
+      userQuery().then(function(results) {
+        const isMatch = bcrypt.compare(adminPass, results[0].adminPass);
+        if (!isMatch) {
+          return res
+            .status(400)
+            .json({ errors: [{ msg: 'Invalid Credentials' }] });
+        }
+
+        const payload = {
+          admin: {
+            id: results[0].id,
+            email: results[0].adminEmail,
+            pass: results[0].adminPass,
+          }
+        };
+
+        jwt.sign(
+          payload,
+          config.jwtSecret,
+          { expiresIn: '5 days' },
+          (err, token) => {
+            if (err) throw err;
+            res.json({ token:token, isAuth:true });
+          }
+        );
+      }); 
+
 
       let user = await User.findOne({ userPass });
       if (!user) {
