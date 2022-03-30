@@ -8,15 +8,27 @@ const { check, validationResult } = require('express-validator');
 const normalize = require('normalize-url');
 const config = require('../../config');
 const Admin = require('../../models/Admin');
-
+const sql = require("../../config/mySql");
 
 router.post(
   '/login',
   async (req, res) => {
-    console.log(req.body);
     const { adminEmail, adminPass } = req.body;
     try {
-      const admin = await Admin.findOne({ adminEmail });
+      console.log('login', adminEmail);
+      const admin = sql.query(`SELECT * FROM admins WHERE adminEmail = '${adminEmail}'`, (err, res) => {
+        if (err) {
+          console.log("error: ", err);
+          return err;
+        }
+    
+        if (res.length) {
+          console.log(res);
+          return res.row;
+        }
+      });
+      console.log('admin', admin);
+      // const admin = await Admin.findOne({ adminEmail });
       const isMatch = await bcrypt.compare(adminPass, admin.adminPass);
       console.log(isMatch);
 
