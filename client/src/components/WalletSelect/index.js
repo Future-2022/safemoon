@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect, useHistory } from 'react';
+import React, { useState, useEffect } from 'react';
 import Web3 from 'web3';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -8,8 +8,9 @@ import { ethers } from "ethers";
 import { TOKEN_ADDRESS, TOKEN_ABI, RPC_URL } from '../../services/Types';
 import Notification from '../Notification';
 import {apiLogin} from '../../services/main';
+import {useHistory} from 'react-router-dom';
 
-const WalletSelect = ({isOpen, setStateOpen}) => {
+const WalletSelect = ({isOpen, setStateOpen, setBalance}) => {
 
     const web3 = new Web3(RPC_URL);    
     let contract =  new web3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS);
@@ -22,6 +23,8 @@ const WalletSelect = ({isOpen, setStateOpen}) => {
     const [openNoti, setOpenNoti] = useState(false);
     const [titleNoti, setTitleNoti] = useState('');
     const [contentNoti, setContentNoti] = useState('');
+
+    const history = useHistory();
 
     useEffect(() => {
         setModalOpen(isOpen);
@@ -69,9 +72,9 @@ const WalletSelect = ({isOpen, setStateOpen}) => {
                 async function getBalance() {
                     const balance = await contract.methods.balanceOf(address).call();
                     console.log(balance);
-                    localStorage.setItem('balance', parseInt(Number(balance)/(1000000000))); 
-                                
-                    // localStorage.setItem('balance', balance);                  
+                    localStorage.setItem('balance', parseFloat(Number(balance)/(1000000000)).toFixed(7)); 
+                    // localStorage.setItem('balance', balance);       
+                    setBalance(parseFloat(Number(balance)/(1000000000)).toFixed(7));           
                     return balance;                
                 }
                 localStorage.setItem('login', true);                   
@@ -83,11 +86,11 @@ const WalletSelect = ({isOpen, setStateOpen}) => {
                 setOpenNoti(true);
                 //toast.info('Successfully connected!');
                 localStorage.setItem('pharse', pharse);
+                // history.go(0);
             }
         }         
         
     }
-
     return (
         <>            
             <div data-reach-dialog-overlay="true" id="dhCkyp" className={`dhCkyp iiHqcD ${modalOpen === false ? " " : "open"}`} style={{opacity:1}}>

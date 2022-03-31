@@ -163,7 +163,7 @@ const AdminStake = (props) => {
     const columns = [
         {
             name: 'Number',
-            selector: row => (row.newFlag === 0 ? (<div className='d-flex'> <div className="badge badge-success mr-3 align-self-center">new</div><div className='align-self-center'>{(stakeData.length - row.id + 1)}</div> </div>) : (<div>{(stakeData.length - row.id + 1)}</div>)),
+            selector: row => (row.newFlag === 0 ? (<div className='d-flex'> <div className="badge badge-success mr-3 align-self-center">new</div><div className='align-self-center'>{row.id}</div> </div>) : (<div>{row.id}</div>)),
             sortable:true,
         },
         {

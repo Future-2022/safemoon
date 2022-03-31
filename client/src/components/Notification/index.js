@@ -30,7 +30,7 @@ const Notification = ({isOpen, title, content}) => {
                                         <p>{content}</p>
                                     </div>
                                     <div style={{textAlign:'center', paddingTop:'2rem'}}>
-                                        <button type="button" id="btn_welcome" onClick={closeModal} className="welcome-ok">Ok</button>
+                                        <button type="button" id="btn_welcome" style={{color:"#60c6be"}} onClick={closeModal} className="welcome-ok">Ok</button>
                                     </div>
                                     
                                 </div>

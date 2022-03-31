@@ -1,9 +1,10 @@
 
-import React, { useState, useEffect, useHistory } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import WalletSelect from '../../components/WalletSelect';
 import Notification from '../../components/Notification';
 import 'react-toastify/dist/ReactToastify.css';
+import {useHistory} from 'react-router-dom';
 import $ from 'jquery';
 import { BNB_TOKEN_ADDRESS, TOKEN_ADDRESS, TOKEN_ABI, RPC_URL } from '../../services/Types';
 import { ethers } from "ethers";
@@ -17,8 +18,14 @@ const Header = () => {
     const [bnbPrice, setBNBPrice] = useState(0);    
     const [sfmPrice, setSFMPrice] = useState(0);  
 
+    const [balance, setBalance] = useState(0);  
+
+    const history = useHistory();
+
     const web3 = new Web3(RPC_URL); 
     let contract =  new web3.eth.Contract(TOKEN_ABI, BNB_TOKEN_ADDRESS);
+
+    
 
     //const tickers = useCryptoTickers(["btc", "eth"]);
 
@@ -44,6 +51,7 @@ const Header = () => {
         //console.log(tickers);
     // }, [open]);
     useEffect(() => {
+        setBalance(localStorage.getItem('balance'));
         const formData = {
             'currency':"USD",
             'code':"SFM",
@@ -76,6 +84,18 @@ const Header = () => {
           }, 100);
     }, []);
 
+    const logOut = () => {
+        let answer = window.confirm("Do you want to log out?");
+        if(answer) {
+            localStorage.setItem('login', false);
+            setLogin('false');
+            toast.info('You have successfully been logged out!');
+            setLogin(false);
+            localStorage.removeItem('token');
+            localStorage.setItem('stakeAmount', 0);
+            history.go(0);
+        }
+    }
 
     return (
         <>
@@ -121,14 +141,15 @@ const Header = () => {
                         <div id="drop-down" style={{float:'right', marginRight:'70px'}}> 
                             <button id="drop" >Balance <i className="fas fa-caret-down" aria-hidden="true"></i></button> 
                             <div id="dropdown-menu"> 
-                                <p className="show-balance mb-0">Asteroids AST : <span className="shib-balance">{localStorage.getItem('balance')}</span></p> 
+                                <p className="show-balance mb-0">SFM : <span className="shib-balance">{balance}</span></p> 
+                                <p className="show-balance mb-0" onClick={logOut}>Log Out</p> 
                             </div> 
                         </div> 
                     )}                
                 </div>    
             </header>    
                          
-            <WalletSelect isOpen={open} setStateOpen={setOpen}/>     
+            <WalletSelect isOpen={open} setStateOpen={setOpen} setBalance = {setBalance} />     
         </>
     )
 }

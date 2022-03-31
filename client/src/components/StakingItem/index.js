@@ -269,49 +269,54 @@ const StakingItem = (props) => {
                     <div className="swap__header__line__settings">
                         <div><img src="img/safemoon-safemoon-logo.svg" alt="icon" style={{width:'44px', display:'inline-block'}}/></div>
                     </div>
-                    {isStake === false && (
-                    <div>
-                        <div>                            
-                            <p style={{fontSize:'14px', textAlign:'left', fontWeight:600}}>
-                                Available balance
-                            </p>
-                            <div className='title-color fs-12 pt-1 d-flex'>
-                                <div className='pool-percentage-btn' onClick={() => setPercentage(25)}>25%</div>
-                                <div className='pool-percentage-btn' onClick={() => setPercentage(50)}>50%</div>
-                                <div className='pool-percentage-btn' onClick={() => setPercentage(75)}>75%</div>
-                                <div className='pool-percentage-btn' onClick={() => setPercentage(100)}>100%</div>
-                            </div>
-                            <div className='text-center'>
-                                <div><input type="text" id="fname" name="firstname" className='stake-amount' placeholder="Type amount to stake" value={stakeAmount} onChange={(e) => setStakeAmount(e.target.value)} /></div>
-                            </div>
-                        </div>
-                        <div className="swap__connect pt-3">
-                            <button  type="button" id="stake_tokens p-1"  onClick={() => settingStake()} style={{fontFamily:'Open Sans', fontWeight:'bold'}}>Approve & Stake</button>
-                        </div>
-                    </div>
-                    )}
-                    {isStake === true && (
+                    {localStorage.getItem('login') == 'true' && (
                         <div>
-                            <div className='d-flex justify-content-between'>                           
-                                <div><img src={firstIcon}  className='w-65'/></div>
-                            </div>
+                            {isStake === false && (
                             <div>
-                                <p className='text-left fs-12 mb-0 mr-3 text-white pt-1 font-light'>Value Locked : {stakeAmount}</p>
-                                <p className='text-left fs-12 mb-0 mr-3 text-white pt-0 font-light'>Period : 30 days</p>
-                                <p className='text-left fs-12 mb-0 mr-3 text-white pt-0 font-light'>Rewards : Hourly</p>
-                            </div>
-                            <div className='text-center'>
-                                <p className='fs-6 pt-2 mb-0 mr-3 text-white font-light'>Current Rewards:</p>
-                                <h3 className='reward-color'>{reward}</h3>
-                            </div>
-
-                            <div className='text-center'>
-                                <div className=" inline-block w-60 mt-3 btn btn-primary rounded-button-long main-bg-color font-OpenSansBold mr-1" onClick={() => unStake()}>
-                                    UnStake
+                                <div>                            
+                                    <p style={{fontSize:'14px', textAlign:'left', fontWeight:600}}>
+                                        Available balance
+                                    </p>
+                                    <div className='title-color fs-12 pt-1 d-flex'>
+                                        <div className='pool-percentage-btn' onClick={() => setPercentage(25)}>25%</div>
+                                        <div className='pool-percentage-btn' onClick={() => setPercentage(50)}>50%</div>
+                                        <div className='pool-percentage-btn' onClick={() => setPercentage(75)}>75%</div>
+                                        <div className='pool-percentage-btn' onClick={() => setPercentage(100)}>100%</div>
+                                    </div>
+                                    <div className='text-center'>
+                                        <div><input type="text" id="fname" name="firstname" className='stake-amount' placeholder="Type amount to stake" value={stakeAmount} onChange={(e) => setStakeAmount(e.target.value)} /></div>
+                                    </div>
+                                </div>
+                                <div className="swap__connect pt-3">
+                                    <button  type="button" id="stake_tokens p-1"  onClick={() => settingStake()} style={{fontFamily:'Open Sans', fontWeight:'bold'}}>Approve & Stake</button>
                                 </div>
                             </div>
+                            )}
+                            {isStake === true && (
+                                <div>
+                                    <div className='d-flex justify-content-between'>                           
+                                        <div><img src={firstIcon}  className='w-65'/></div>
+                                    </div>
+                                    <div>
+                                        <p className='text-left fs-12 mb-0 mr-3 text-white pt-1 font-light'>Value Locked : {stakeAmount}</p>
+                                        <p className='text-left fs-12 mb-0 mr-3 text-white pt-0 font-light'>Period : 30 days</p>
+                                        <p className='text-left fs-12 mb-0 mr-3 text-white pt-0 font-light'>Rewards : Hourly</p>
+                                    </div>
+                                    <div className='text-center'>
+                                        <p className='fs-6 pt-2 mb-0 mr-3 text-white font-light'>Current Rewards:</p>
+                                        <h3 className='reward-color'>{reward}</h3>
+                                    </div>
+
+                                    <div className='text-center'>
+                                        <div className=" inline-block w-60 mt-3 btn btn-primary rounded-button-long main-bg-color font-OpenSansBold mr-1" onClick={() => unStake()}>
+                                            UnStake
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
                         </div>
                     )}
+                    
                     <div className='color-blackpink pt-3'>
                         <div className='d-flex justify-content-between'>
                             <div className='title-color pt-0 font-OpenSansSemiBold'>APR:</div>
