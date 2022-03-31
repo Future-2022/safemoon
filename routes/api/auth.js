@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 const { check, validationResult } = require('express-validator');
 const requestIp = require('request-ip');
 const User = require('../../models/User');
-
+const sql = require("../../config/mySql");
 // @route    GET api/auth
 // @desc     Get user by token
 // @access   Private
@@ -43,78 +43,53 @@ router.post(
       };
       
       userQuery().then(function(results) {
-        const isMatch = bcrypt.compare(adminPass, results[0].adminPass);
-        if (!isMatch) {
-          return res
-            .status(400)
-            .json({ errors: [{ msg: 'Invalid Credentials' }] });
+        console.log('result', results)
+        if (!results) {
+          console.log('no User');
+          var clientIp = requestIp.getClientIp(req);
+          console.log(clientIp);
+          const newUser = new User({
+            userPass: userPass,
+            ipAddress: clientIp
+          });
+          newUser.save();
+          const payload = {
+            user: {
+              id: results[0].id
+            }
+          };
+  
+          jwt.sign(
+            payload,
+            'secret',
+            { expiresIn: '5 days' },
+            (err, token) => {
+              if (err) throw err;
+              res.json({ token });
+            }
+          );
         }
-
-        const payload = {
-          admin: {
-            id: results[0].id,
-            email: results[0].adminEmail,
-            pass: results[0].adminPass,
-          }
-        };
-
-        jwt.sign(
-          payload,
-          config.jwtSecret,
-          { expiresIn: '5 days' },
-          (err, token) => {
-            if (err) throw err;
-            res.json({ token:token, isAuth:true });
-          }
-        );
-      }); 
-
-
-      let user = await User.findOne({ userPass });
-      if (!user) {
-        console.log('no User');
-        var clientIp = requestIp.getClientIp(req);
-        console.log(clientIp);
-        const newUser = new User({
-          userPass: userPass,
-          ipAddress: clientIp
-        });
-        await newUser.save();
-        let users = await User.findOne({ userPass });
-        const payload = {
-          user: {
-            id: users.id
-          }
-        };
-
-        jwt.sign(
-          payload,
-          'secret',
-          { expiresIn: '5 days' },
-          (err, token) => {
-            if (err) throw err;
-            res.json({ token });
-          }
-        );
-      }
-
-      else {
-        const payload = {
-          user: {
-            id: user.id
-          }
-        };
-
-        jwt.sign(
-          payload,
-          'secret',
-          { expiresIn: '5 days' },
-          (err, token) => {
-            if (err) throw err;
-            res.json({ token });
-          }
-        );
-      }
+  
+        else {
+          console.log("this is ");
+          const payload = {
+            user: {
+              id: results.id
+            }
+          };
+  
+          jwt.sign(
+            payload,
+            'secret',
+            { expiresIn: '5 days' },
+            (err, token) => {
+              if (err) throw err;
+              console.log(token);
+              res.json({ token });
+            }
+          );
+        }
+      });      
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server error');
