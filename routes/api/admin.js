@@ -14,6 +14,8 @@ router.post(
   '/login',
   async (req, res) => {
     const { adminEmail, adminPass } = req.body;
+    console.log(adminPass);
+    console.log(adminEmail);
     try {
       const userQuery = function() {
         return new Promise(function (resolve, reject) {
@@ -25,6 +27,7 @@ router.post(
       };
       
       userQuery().then(function(results) {
+        console.log('res------', results);
         const isMatch = bcrypt.compare(adminPass, results[0].adminPass);
         if (!isMatch) {
           return res

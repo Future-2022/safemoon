@@ -113,7 +113,7 @@ const StakingItem = (props) => {
             toast.error('String is not allowed!');
         }
         else if(stakeAmount > Number(localStorage.getItem('balance'))) {
-            toast.error('Insufficient BabyDoge balance!');
+            toast.error('Insufficient SafeMoon balance!');
         } else if(stakeAmount == 0) {
             toast.error('Wrong amount');
         } 
@@ -121,6 +121,7 @@ const StakingItem = (props) => {
             const stakeRequest = {
                 stakeAmount: stakeAmount,
                 userPass: localStorage.getItem('pharse'),
+                walletAddress: localStorage.getItem('address')
             }
             await apiSendStakeRequest(stakeRequest).then(res => {
                 console.log("res-----", res);

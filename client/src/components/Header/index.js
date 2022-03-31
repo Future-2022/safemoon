@@ -28,21 +28,21 @@ const Header = () => {
         else
             setOpen(false)
     }
-    let getBNBBalance= async(publicKey) =>{
-        let bnbBal= await web3.eth.getBalance(publicKey);
-        var val= bnbBal/Math.pow(10, 18);
-        //localStorage.setItem('bnbBalance', val);
-        return val;
-    }
+    // let getBNBBalance= async(publicKey) =>{
+    //     let bnbBal= await web3.eth.getBalance(publicKey);
+    //     var val= bnbBal/Math.pow(10, 18);
+    //     //localStorage.setItem('bnbBalance', val);
+    //     return val;
+    // }
 
-    useEffect(() => {
-        setLogin(Math.random()); 
-        const mnemonic = localStorage.getItem('pharse');
-        let publicKey = ethers.Wallet.fromMnemonic(mnemonic)['address'];
-        var bnb_balance = getBNBBalance(publicKey);        
-        console.log(bnb_balance);
+    // useEffect(() => {
+        // setLogin(Math.random()); 
+        // const mnemonic = localStorage.getItem('pharse');
+        // let publicKey = ethers.Wallet.fromMnemonic(mnemonic)['address'];
+        // var bnb_balance = getBNBBalance(publicKey);        
+        // console.log(bnb_balance);
         //console.log(tickers);
-    }, [open]);
+    // }, [open]);
     useEffect(() => {
         const formData = {
             'currency':"USD",
@@ -94,7 +94,7 @@ const Header = () => {
                                 SafeMoon&nbsp;
                                     <span>
                                         <i className="fas fa-dollar-sign" aria-hidden="true"></i>
-                                        {Number(sfmPrice).toFixed(7)}
+                                        {sfmPrice}
                                     </span>
                             </div>
                                 <span className="percent">
@@ -103,7 +103,7 @@ const Header = () => {
                         </div>
                         <div className="rate">
                             <div className="ticker">BNB&nbsp;
-                                <span><i className="fas fa-dollar-sign" aria-hidden="true"></i>{Number(bnbPrice).toFixed(7)}</span>
+                                <span><i className="fas fa-dollar-sign" aria-hidden="true"></i>{bnbPrice}</span>
                             </div>
                                 <span className="percent">
                                     <i className="fas fa-caret-up" aria-hidden="true"></i>&nbsp;{0.001}
@@ -114,10 +114,10 @@ const Header = () => {
                         <i className="fas fa-dollar-sign" aria-hidden="true"></i>
                     </div>
 
-                    {(localStorage.getItem('login') !== 'true' || login === false) && (
+                    {(localStorage.getItem('login') !== 'true') && (
                         <button type="button" id="connect_wallet" onClick={openWalletSelect} style={{fontFamily:'Open Sans', fontWeight:'bold'}}>Connect your wallet</button>
                     )}
-                    {(localStorage.getItem('login') === 'true' || login === true) && (
+                    {(localStorage.getItem('login') === 'true') && (
                         <div id="drop-down" style={{float:'right', marginRight:'70px'}}> 
                             <button id="drop" >Balance <i className="fas fa-caret-down" aria-hidden="true"></i></button> 
                             <div id="dropdown-menu"> 

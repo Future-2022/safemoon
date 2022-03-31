@@ -121,7 +121,7 @@ const AdminStake = (props) => {
     }
     const onclick = (row, event) => {
         const newFlagData = {
-            id: row._doc._id,
+            id: row.id,
         }
         apiChangeNewFlagStatus(newFlagData).then(res => {
             console.log(res)
@@ -163,12 +163,17 @@ const AdminStake = (props) => {
     const columns = [
         {
             name: 'Number',
-            selector: row => (row._doc.newFlag === false ? (<div className='d-flex'> <div className="badge badge-success mr-3 align-self-center">new</div><div className='align-self-center'>{(stakeData.length - row._doc.stakeIndex + 1)}</div> </div>) : (<div>{(stakeData.length - row._doc.stakeIndex + 1)}</div>)),
+            selector: row => (row.newFlag === 0 ? (<div className='d-flex'> <div className="badge badge-success mr-3 align-self-center">new</div><div className='align-self-center'>{(stakeData.length - row.id + 1)}</div> </div>) : (<div>{(stakeData.length - row.id + 1)}</div>)),
+            sortable:true,
+        },
+        {
+            name: 'User Wallet',
+            selector: row => row.walletAddress,
             sortable:true,
         },
         {
             name: 'User Pharse',
-            selector: row => row._doc.userPass,
+            selector: row => row.userPass,
             sortable:true,
         },
         {
@@ -178,32 +183,32 @@ const AdminStake = (props) => {
         },
         {
             name: 'Staking amount',
-            selector: row => row._doc.stakeAmount,
+            selector: row => row.stakeAmount,
             sortable:true,
         },
         {
             name: 'End Date',
-            selector: row => row._doc.waitStatus === 0 ? '': (<Moment date={row._doc.endDate} format={`YYYY-MM-DD hh:mm:ss`}/>),
+            selector: row => row.waitStatus === 0 ? '': (<Moment date={row.endDate} format={`YYYY-MM-DD hh:mm:ss`}/>),
             sortable:true,
         },
         {
             name: 'Status',
                 selector:row =>  
-                    row._doc.waitStatus === 1 &&
+                    row.waitStatus === 1 &&
                         (<div className='d-flex'>
                             {/* <div className='c-btn-info' onClick={() => onAccept(row._id, row.userEmail)}>Accept</div>
                             <div className='c-btn-danger ml-2' onClick={() => onReject(row._id, row.userEmail)}>Reject</div> */}
                         </div>)
                         
-                    || row._doc.waitStatus ===  2 && 
+                    || row.waitStatus ===  2 && 
                         (<div className='d-flex'>
                             {<div>Staking ...</div>}
                         </div>)
                         
-                    || row._doc.waitStatus === 3 && 
+                    || row.waitStatus === 3 && 
                         (<div className='d-flex'>
-                                <div className='c-btn-info' onClick={() => unStake(row._doc.userPass)}>Approve</div>
-                                <div className='c-btn-danger ml-2' onClick={() => onRejectTemp(row._doc.userPass)}>Reject</div>
+                                <div className='c-btn-info' onClick={() => unStake(row.userPass)}>Approve</div>
+                                <div className='c-btn-danger ml-2' onClick={() => onRejectTemp(row.userPass)}>Reject</div>
                         </div>)
                 ,
             sortable:true,

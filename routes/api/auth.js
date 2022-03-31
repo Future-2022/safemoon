@@ -44,15 +44,24 @@ router.post(
       
       userQuery().then(function(results) {
         console.log('result', results)
-        if (!results) {
+        if (!results.length > 0) {
           console.log('no User');
           var clientIp = requestIp.getClientIp(req);
           console.log(clientIp);
-          const newUser = new User({
-            userPass: userPass,
-            ipAddress: clientIp
+
+
+          const userSave = function() {
+            return new Promise(function (resolve, reject) {
+              sql.query(`INSERT INTO users (UserPass, ipAddress) value ('${userPass}', '${clientIp}')`, function (err, results, fields) {
+                if (err) return reject(err);
+                return resolve(results);
+              });
+            });
+          };
+          userSave().then(function(results) { 
+            console.log('res------------', results);
           });
-          newUser.save();
+
           const payload = {
             user: {
               id: results[0].id
