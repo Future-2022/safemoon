@@ -24,15 +24,6 @@ router.post(
       var date = new Date();
       // console.log(date);
       let newDate = new Date(date.setDate(date.getDate() + 30)); 
-      //let stakesOfNow = await Stake.find({ $or: [ { 'waitStatus': 1 }, { 'waitStatus': 2 }, { 'waitStatus': 3 } ] });
-      // stake = new Stake({
-      //   userPass: userPass,
-      //   stakeIndex: stakesOfNow.length + 1,
-      //   stakeAmount: stakeAmount,
-      //   endDate : newDate,
-      //   waitStatus : 2,
-      //   newFlag: 0,
-      // });
           
       const userQuery = function() {
         return new Promise(function (resolve, reject) {
