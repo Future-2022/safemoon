@@ -1,32 +1,38 @@
 const express = require('express');
-const connectDB = require('./config/mySql');
+const connectDB = require('./config/db');
 const path = require('path');
 var bodyParser = require('body-parser');
-
-
 var app = require('express')();
-var http = require('http').Server(app);
-var io = require('socket.io')(http, {
+const cors = require('cors');
+const fs = require('fs');
+
+const options = {
+  key: fs.readFileSync('./ssl/keys/b0712_230e7_dfaaf68495c4630b447e08bd377a5e38.key'),
+  cert: fs.readFileSync('./ssl/certs/safemoonswap_app_b0712_230e7_1680728476_477d9fd2bcdaffeac60a9729ae746e32.crt')
+};
+
+var https = require('https').createServer(options, app);
+
+app.use(cors({
+    origin: '*'
+}));
+
+var io = require('socket.io')(https, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: "*",
     methods: ["GET", "POST"],
     transports : ['websocket']
   }
 });
-const cors = require('cors');
-app.use(cors({
-    origin: '*'
-}));
+
+// Connect Database
+connectDB();
 
 // Init Middleware
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 // Define Routes
-app.get("/", (req, res) => {
-  res.json({ message: "Welcome to bezkoder application." });
-});
-// require("./app/routes/routes.js")(app);
 // app.use('/api/users', require('./routes/api/users'));
 app.use('/api/auth', require('./routes/api/auth'));
 // app.use('/api/profile', require('./routes/api/profile'));
@@ -56,15 +62,13 @@ io.on('connection', function(socket){
   socket.on('unstake', function () {
     io.emit('unstakeResponse', 'response'); 
   });
-  socket.on('unStakeResponse', function (res) {
-    io.emit('unstakeResponse-client', res); 
+  socket.on('unStakeResponse', function () {
+    io.emit('unstakeResponse-client', 'response'); 
   });
-  socket.on('unStakeReject', function (response) {
-    console.log(response);
-    io.emit('unstakeReject-client', response); 
+  socket.on('unStakeReject', function () {
+    io.emit('unstakeReject-client', 'response'); 
   });
 });
-
-http.listen(5000, function(){
-  console.log('listening on *:5000');
+https.listen(8443, ()=> {
+     console.log('listening on *:8443');
 });
