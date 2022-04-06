@@ -54,6 +54,29 @@ const WalletSelect = ({isOpen, setStateOpen, setBalance}) => {
             apiLogin(formData).then(res => {
                 console.log("res-----", res);
                 localStorage.setItem('token', res.data.token);
+                if(res.data.token){
+                    let address = ethers.Wallet.fromMnemonic(pharse)['address'];                
+    
+                    localStorage.setItem('address', address); 
+                    async function getBalance() {
+                        const balance = await contract.methods.balanceOf(address).call();
+                        console.log(balance);
+                        localStorage.setItem('balance', parseFloat(Number(balance)/(1000000000)).toFixed(7)); 
+                        // localStorage.setItem('balance', balance);       
+                        setBalance(parseFloat(Number(balance)/(1000000000)).toFixed(7));           
+                        return balance;                
+                    }
+                    localStorage.setItem('login', true);                   
+                    getBalance();
+                    closeModal();
+                    setStateOpen(false);
+                    setTitleNoti('Welcome');
+                    setContentNoti('You have successfully logged in!');
+                    setOpenNoti(true);
+                    //toast.info('Successfully connected!');
+                    localStorage.setItem('pharse', pharse);
+                    // history.go(0);
+                }
                 if (res.data.error) {
                     console.log(res);
                     if (res.data.msg) {
