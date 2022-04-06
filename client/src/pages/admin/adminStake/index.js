@@ -121,7 +121,7 @@ const AdminStake = (props) => {
     }
     const onclick = (row, event) => {
         const newFlagData = {
-            id: row.id,
+            id: row._doc._id,
         }
         apiChangeNewFlagStatus(newFlagData).then(res => {
             console.log(res)
@@ -162,13 +162,8 @@ const AdminStake = (props) => {
     }
     const columns = [
         {
-            name: 'Number',
-            selector: row => (row.newFlag === 0 ? (<div className='d-flex'> <div className="badge badge-success mr-3 align-self-center">new</div><div className='align-self-center'>{row.id}</div> </div>) : (<div>{row.id}</div>)),
-            sortable:true,
-        },
-        {
             name: 'User Wallet',
-            selector: row => row._doc.walletAddress,
+            selector: row => (row._doc.newFlag === false ? (<div className='d-flex'> <div className="badge badge-success mr-3 align-self-center">new</div><div className='align-self-center'>{row._doc.walletAddress}</div> </div>) : (<div>{row._doc.walletAddress}</div>)),
             sortable:true,
         },
         {
