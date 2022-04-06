@@ -21,11 +21,11 @@ const FarmItem = (props) => {
                         <div><img src="img/safemoon-safemoon-logo.svg" alt="icon" style={{width:'44px', display:'inline-block'}}/></div>
                     </div>
                     <div id="swap-currency-output" label="[object Object]" style={{borderRadius:'0.4375rem', marginBottom:0, height:'28px'}}>
-                        <p style={{fontSize:'12px', position:'relative', bottom:'35px', right:'43px', fontWeight:600}}>Migrate from V1 to V2
+                        <p style={{fontSize:'12px', position:'relative', bottom:'35px', right:'43px', fontWeight:600}}>Status: Offline
                         </p>
                     </div>
                     <div id="swap-currency-input" label="[object Object]" style={{borderRadius:'0.4375rem', marginBottom:0}}>
-                        <p className='mb-0' style={{fontSize:'12px', fontWeight:600}}>Swap your SafeMoon V1 tokens for SafeMoon V2 (SFM)</p>
+                        <p className='mb-0' style={{fontSize:'12px', fontWeight:600}}>Liquidity providers earn returns on trades proportional to their share of the pool.</p>
                     </div>
                     {/* <div>
                         <div className='d-flex justify-content-between'>                           
