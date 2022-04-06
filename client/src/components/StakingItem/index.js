@@ -322,9 +322,9 @@ const StakingItem = (props) => {
                     
                     <div className='color-blackpink pt-3'>
                         <div className='d-flex justify-content-between'>
-                            <div className='title-color pt-0 font-OpenSansSemiBold'>APR:</div>
+                            <div className='title-color pt-0 font-OpenSansSemiBold'>APY:</div>
                             <div className='d-flex'>
-                                <span className='pl-2 text-white'>218.13%</span>
+                                <span className='pl-2 text-white'>7889.13%</span>
                             </div>
                         </div>
                         <div className='d-flex justify-content-between'>
@@ -356,15 +356,15 @@ const StakingItem = (props) => {
                                 <div className='color-blackpink pt-3'>
                                     <div className='d-flex justify-content-between'>
                                         <div className='title-color pt-0 font-OpenSansSemiBold'>Total:</div>
-                                        <div className='pl-2 font-OpenSansBold fs-12'>77,466,708,174,252</div>
+                                        <div className='pl-2 font-OpenSansBold fs-12'>77,466,708,174</div>
                                     </div>
                                 </div>
                                 <div className='title-color pt-1 d-flex cursor-pointer'>
-                                    Add LBD to Metamask <img src= {MetaMask} width={18} className='ml-2' />
+                                    Add to Metamask <img src= {MetaMask} width={18} className='ml-2' />
                                 </div>
-                                <div className='title-color pt-1 d-flex cursor-pointer'>
+                                {/* <div className='title-color pt-1 d-flex cursor-pointer'>
                                     View project site
-                                </div>
+                                </div> */}
                             </>
                         )}
                     </div> 
