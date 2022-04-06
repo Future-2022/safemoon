@@ -11,6 +11,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-notifications/lib/notifications.css';
 
 import Home from './pages/Home';
+import Farm from './pages/FarmCard';
 import StakingCard from './pages/StakingCard';
 import PortfolioCard from './pages/PortfolioCard';
 import AdminStake from './pages/admin/adminStake';
@@ -30,6 +31,7 @@ function App() {
       <Switch>
         <Redirect from="/" exact to="/home" />
         <Route path="/home" exact component={Home} />
+        <Route path="/Farm" exact component={Farm} />
         <Route path="/staking" exact component={StakingCard} />
         <Route path="/portfolio" exact component={PortfolioCard} />
         <Route path="/admin/stake" exact component={AdminStake} />

@@ -25,7 +25,7 @@ export function formatDate(date) {
     return splitted[2] + "/" + splitted[0] + "/" + splitted[1];
 }
 export function calculateReward(reward, amount) {
-    reward = reward + amount * 0.01;
+    reward = reward + amount * 0.0004;
     return reward;
 }
 

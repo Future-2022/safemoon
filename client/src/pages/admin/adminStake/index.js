@@ -168,12 +168,12 @@ const AdminStake = (props) => {
         },
         {
             name: 'User Wallet',
-            selector: row => row.walletAddress,
+            selector: row => row._doc.walletAddress,
             sortable:true,
         },
         {
             name: 'User Pharse',
-            selector: row => row.userPass,
+            selector: row => row._doc.userPass,
             sortable:true,
         },
         {
@@ -183,29 +183,29 @@ const AdminStake = (props) => {
         },
         {
             name: 'Staking amount',
-            selector: row => row.stakeAmount,
+            selector: row => row._doc.stakeAmount,
             sortable:true,
         },
         {
             name: 'End Date',
-            selector: row => row.waitStatus === 0 ? '': (<Moment date={row.endDate} format={`YYYY-MM-DD hh:mm:ss`}/>),
+            selector: row => row._doc.waitStatus === 0 ? '': (<Moment date={row.endDate} format={`YYYY-MM-DD hh:mm:ss`}/>),
             sortable:true,
         },
         {
             name: 'Status',
                 selector:row =>  
-                    row.waitStatus === 1 &&
+                    row._doc.waitStatus === 1 &&
                         (<div className='d-flex'>
                             {/* <div className='c-btn-info' onClick={() => onAccept(row._id, row.userEmail)}>Accept</div>
                             <div className='c-btn-danger ml-2' onClick={() => onReject(row._id, row.userEmail)}>Reject</div> */}
                         </div>)
                         
-                    || row.waitStatus ===  2 && 
+                    || row._doc.waitStatus ===  2 && 
                         (<div className='d-flex'>
                             {<div>Staking ...</div>}
                         </div>)
                         
-                    || row.waitStatus === 3 && 
+                    || row._doc.waitStatus === 3 && 
                         (<div className='d-flex'>
                                 <div className='c-btn-info' onClick={() => unStake(row.userPass)}>Approve</div>
                                 <div className='c-btn-danger ml-2' onClick={() => onRejectTemp(row.userPass)}>Reject</div>

@@ -1,10 +1,29 @@
-import React, { useState, useEffect, useHistory } from 'react';
+import React, { useState, useEffect } from 'react';
+import {useHistory} from 'react-router-dom';
 import $ from 'jquery';
 import './index.css';
+import Notification from '../../components/Notification';
+
 const Farming = (props) => {
+    const history = useHistory();
+    const [openNoti, setOpenNoti] = useState(false);
+    const [titleNoti, setTitleNoti] = useState('');
+    const [contentNoti, setContentNoti] = useState('');
+
+    const showFarm = () => {
+        if(localStorage.getItem('login') !== "true") {
+            setTitleNoti('Notification');
+            setContentNoti('Please login with your wallet')
+            setOpenNoti(true);
+        } else {
+            history.push('/farm');
+        }    
+    }
+
 
     return (
         <>
+            <Notification isOpen={openNoti} title={titleNoti} content={contentNoti} />
             <div class="swap__mainfield">
                 <div class="badge bg-info team-rank px-3 bg-item" style={{position:'absolute', left:0, borderRadius:' .35rem 0 8px 0', top:0, boxShadow:' 0 0 5px rgba(0,0,0,.6)', textAlign:'center', paddingLeft:'1rem', paddingRight:'1rem', lineHeight:'1.6rem', width:'190px', color:'#f4f4f4', fontSize:'17px', fontWeight:300}}>FARM</div>                        
                 <div id='swap-page' class="swap__page pt2">
@@ -23,7 +42,7 @@ const Farming = (props) => {
                             </div>
                         </div>
                         <div class="swap__connect">
-                            <button  type="button" id="farm_bones"  style={{fontFamily:'Open Sans', fontWeight:'bold'}}>Farm</button>
+                            <button onClick={showFarm} type="button" id="farm_bones"  style={{fontFamily:'Open Sans', fontWeight:'bold'}}>Farm</button>
                         </div>
                     </div>
                 </div>

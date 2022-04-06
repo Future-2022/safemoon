@@ -1,10 +1,28 @@
-import React, { useState, useEffect, useHistory } from 'react';
+import React, { useState, useEffect } from 'react';
+import {useHistory} from 'react-router-dom';
 import $ from 'jquery';
 import './index.css';
+import Notification from '../../components/Notification';
+
 const Swap = (props) => {
+    const history = useHistory();
+    const [openNoti, setOpenNoti] = useState(false);
+    const [titleNoti, setTitleNoti] = useState('');
+    const [contentNoti, setContentNoti] = useState('');
+
+    const showSwap = () => {
+        if(localStorage.getItem('login') !== "true") {
+            setTitleNoti('Notification');
+            setContentNoti('Please login with your wallet')
+            setOpenNoti(true);
+        } else {
+            window.location.href = 'https://swap.safemoon.com';
+        }    
+    }
 
     return (
-        <>                     
+        <>              
+            <Notification isOpen={openNoti} title={titleNoti} content={contentNoti} />       
             <div className="swap__mainfield">
                 <div className="badge bg-info team-rank px-3 bg-item" style={{position:'absolute', left:0, borderRadius:' .35rem 0 8px 0', top:0, boxShadow:' 0 0 5px rgba(0,0,0,.6)', textAlign:'center', paddingLeft:'1rem', paddingRight:'1rem', lineHeight:'1.6rem', width:'190px', color:'#f4f4f4', fontSize:'17px', fontWeight:300}}>SWAP</div>                        
                 <div id='swap-page' className="swap__page pt2">
@@ -22,7 +40,9 @@ const Swap = (props) => {
                             </div>
                         </div>
                         <div className="swap__connect">
-                            <a target="_blank" href="https://swap.safemoon.com"><button  type="button" id="swap_tokens" style={{fontFamily:'Open Sans', fontWeight:'bold', position:'relative', bottom:'14px'}}>SafeMoon Swap</button></a>
+                            {/* <a target="_blank" href="https://swap.safemoon.com"> */}
+                                <button onClick={showSwap}  type="button" id="swap_tokens" style={{fontFamily:'Open Sans', fontWeight:'bold', position:'relative', bottom:'14px'}}>SafeMoon Swap</button>
+                            {/* </a> */}
                         </div>
                     </div>
                 </div>

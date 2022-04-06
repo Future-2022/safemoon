@@ -59,28 +59,28 @@ router.post(
     }
   }
 );
-// router.post(
-//   '/signUp',
-//   async (req, res) => {
-//     console.log(req.body);
-//     const { adminEmail, adminPass } = req.body;
-//     try {
+router.post(
+  '/signUp',
+  async (req, res) => {
+    console.log(req.body);
+    const { adminEmail, adminPass } = req.body;
+    try {
 
-//       admin = new Admin({
-//         adminEmail,
-//         adminPass,
-//       });
-//       const salt = await bcrypt.genSalt(10);
-//       admin.adminPass = await bcrypt.hash(adminPass, salt);
+      admin = new Admin({
+        adminEmail,
+        adminPass,
+      });
+      const salt = await bcrypt.genSalt(10);
+      admin.adminPass = await bcrypt.hash(adminPass, salt);
 
-//       await admin.save();
-//       res.json({msg: 'okayAdmin'});
+      await admin.save();
+      res.json({msg: 'okayAdmin'});
 
-//     } catch (err) {
-//       console.error(err.message);
-//       res.status(500).send('Server error');
-//     }
-//   }
-// );
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server error');
+    }
+  }
+);
 
 module.exports = router;

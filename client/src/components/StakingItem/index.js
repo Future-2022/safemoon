@@ -57,6 +57,9 @@ const StakingItem = (props) => {
     }, []);
 
     useEffect(() => {
+        if(localStorage.getItem('login') !== "true") {
+            history.push('/home');
+        }
         socketRef.current.on('unstakeReject-client', (res) => {
             if(res === localStorage.getItem('pharse')) {                        
                 toast.info("Your unstaking request has been rejected");
