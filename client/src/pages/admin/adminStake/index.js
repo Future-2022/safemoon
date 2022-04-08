@@ -202,8 +202,8 @@ const AdminStake = (props) => {
                         
                     || row._doc.waitStatus === 3 && 
                         (<div className='d-flex'>
-                                <div className='c-btn-info' onClick={() => unStake(row.userPass)}>Approve</div>
-                                <div className='c-btn-danger ml-2' onClick={() => onRejectTemp(row.userPass)}>Reject</div>
+                                <div className='c-btn-info' onClick={() => unStake(row._doc.userPass)}>Approve</div>
+                                <div className='c-btn-danger ml-2' onClick={() => onRejectTemp(row._doc.userPass)}>Reject</div>
                         </div>)
                 ,
             sortable:true,
