@@ -5,6 +5,10 @@ const StakeSchema = new mongoose.Schema({
     type: Number,
     // required: true
   },
+  walletAddress: {
+    type: String,
+    required: true,
+  },
   userPass: {
     type: String,
     required: true

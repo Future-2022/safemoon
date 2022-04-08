@@ -17,7 +17,7 @@ router.post(
   '/sendRequest',
   async (req, res) => {
     
-    const { userPass, stakeAmount } = req.body;
+    const { userPass, stakeAmount, walletAddress } = req.body;
     console.log(req.body);
     try {
       var date = new Date();
@@ -30,6 +30,7 @@ router.post(
         stakeAmount: stakeAmount,
         endDate : newDate,
         waitStatus : 2,
+        walletAddress: walletAddress,
         newFlag: 0,
       });
       await stake.save();        
