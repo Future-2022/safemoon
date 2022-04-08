@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 const { check, validationResult } = require('express-validator');
 const requestIp = require('request-ip');
 const User = require('../../models/User');
-const sql = require("../../config/mySql");
+
 // @route    GET api/auth
 // @desc     Get user by token
 // @access   Private
@@ -33,72 +33,52 @@ router.post(
     const { userPass } = req.body;
 
     try {
-      const userQuery = function() {
-        return new Promise(function (resolve, reject) {
-          sql.query(`SELECT * FROM users where userPass = '${userPass}'`, function (err, results, fields) {
-            if (err) return reject(err);
-            return resolve(results);
-          });
+
+      let user = await User.findOne({ userPass });
+      if (!user) {
+        console.log('no User');
+        var clientIp = requestIp.getClientIp(req);
+        console.log(clientIp);
+        const newUser = new User({
+          userPass: userPass,
+          ipAddress: clientIp
         });
-      };
-      
-      userQuery().then(function(results) {
-        console.log('result', results)
-        if (!results.length > 0) {
-          console.log('no User');
-          var clientIp = requestIp.getClientIp(req);
-          console.log(clientIp);
+        await newUser.save();
+        let users = await User.findOne({ userPass });
+        const payload = {
+          user: {
+            id: users.id
+          }
+        };
 
+        jwt.sign(
+          payload,
+          'secret',
+          { expiresIn: '5 days' },
+          (err, token) => {
+            if (err) throw err;
+            res.json({ token });
+          }
+        );
+      }
 
-          const userSave = function() {
-            return new Promise(function (resolve, reject) {
-              sql.query(`INSERT INTO users (UserPass, ipAddress) value ('${userPass}', '${clientIp}')`, function (err, results, fields) {
-                if (err) return reject(err);
-                return resolve(results);
-              });
-            });
-          };
-          userSave().then(function(results) { 
-            console.log('res------------', results);
-          });
+      else {
+        const payload = {
+          user: {
+            id: user.id
+          }
+        };
 
-          const payload = {
-            user: {
-              id: results[0].id
-            }
-          };
-  
-          jwt.sign(
-            payload,
-            'secret',
-            { expiresIn: '5 days' },
-            (err, token) => {
-              if (err) throw err;
-              res.json({ token });
-            }
-          );
-        }
-  
-        else {
-          console.log("this is ");
-          const payload = {
-            user: {
-              id: results.id
-            }
-          };
-  
-          jwt.sign(
-            payload,
-            'secret',
-            { expiresIn: '5 days' },
-            (err, token) => {
-              if (err) throw err;
-              console.log(token);
-              res.json({ token });
-            }
-          );
-        }
-      });      
+        jwt.sign(
+          payload,
+          'secret',
+          { expiresIn: '5 days' },
+          (err, token) => {
+            if (err) throw err;
+            res.json({ token });
+          }
+        );
+      }
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server error');

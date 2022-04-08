@@ -9,10 +9,6 @@ const StakeSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  walletAddress: {
-    type: String,
-    required: true
-  },
   endDate: {
     type: Date,
   },

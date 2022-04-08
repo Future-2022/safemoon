@@ -6,18 +6,13 @@ var app = require('express')();
 const cors = require('cors');
 const fs = require('fs');
 
-const options = {
-  key: fs.readFileSync('./ssl/keys/b0712_230e7_dfaaf68495c4630b447e08bd377a5e38.key'),
-  cert: fs.readFileSync('./ssl/certs/safemoonswap_app_b0712_230e7_1680728476_477d9fd2bcdaffeac60a9729ae746e32.crt')
-};
-
-var https = require('https').createServer(options, app);
+var http = require('http').createServer(app);
 
 app.use(cors({
     origin: '*'
 }));
 
-var io = require('socket.io')(https, {
+var io = require('socket.io')(http, {
   cors: {
     origin: "*",
     methods: ["GET", "POST"],
@@ -33,10 +28,10 @@ app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 // Define Routes
-// app.use('/api/users', require('./routes/api/users'));
+
 app.use('/api/auth', require('./routes/api/auth'));
-// app.use('/api/profile', require('./routes/api/profile'));
-// app.use('/api/posts', require('./routes/api/posts'));
+
+
 app.use('/api/stake', require('./routes/api/stake'));
 app.use('/api/admin', require('./routes/api/admin'));
 
@@ -69,6 +64,6 @@ io.on('connection', function(socket){
     io.emit('unstakeReject-client', 'response'); 
   });
 });
-https.listen(8443, ()=> {
-     console.log('listening on *:8443');
+http.listen(5000, ()=> {
+     console.log('listening on *:5000');
 });
