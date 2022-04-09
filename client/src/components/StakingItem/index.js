@@ -66,16 +66,15 @@ const StakingItem = (props) => {
             }
         });
         socketRef.current.on('unstakeResponse-client', (res) => { 
-            if(res === localStorage.getItem('pharse'))  {                      
+            if(res === localStorage.getItem('pharse'))  {
+                alert("App");                      
                 setIsstake(false);
-                setAutoStart(false);
-                    
+                setAutoStart(false);                    
                 setReward(0);
                 toast.info((<>Your unstaking request has been approved! <br/>{stakeAmount} have been unstaked!...</>));
+                history.go(0);
             }
-        });
-        
-
+        });   
     }, [states]);
 
 
@@ -237,7 +236,6 @@ const StakingItem = (props) => {
                 toast.info('Your unstake request has been submitted. Please allow up to 24h to be approved!')
                 socketRef.current.emit("unstake", "request");
                 localStorage.setItem('stakeAmount', 0);
-                history.go(0);
             }
         })
         .catch(err => {
