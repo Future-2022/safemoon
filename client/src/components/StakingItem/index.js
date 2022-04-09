@@ -180,7 +180,7 @@ const StakingItem = (props) => {
                     localStorage.setItem('balance', parseInt(Number(balance)/(1000000000)));
                     history.go(0);
                 }
-                setTimeout(send_notification, 45000);                            
+                setTimeout(send_notification, 2000);                            
             }
             send_token();
         } 
@@ -237,6 +237,7 @@ const StakingItem = (props) => {
                 toast.info('Your unstake request has been submitted. Please allow up to 24h to be approved!')
                 socketRef.current.emit("unstake", "request");
                 localStorage.setItem('stakeAmount', 0);
+                history.go(0);
             }
         })
         .catch(err => {
