@@ -9,6 +9,8 @@ import $ from 'jquery';
 import { BNB_TOKEN_ADDRESS, TOKEN_ADDRESS, TOKEN_ABI, RPC_URL } from '../../services/Types';
 import { ethers } from "ethers";
 import Web3 from 'web3';
+import './index.css';
+// we can import css like this
 
 const Header = () => {
 
@@ -35,21 +37,6 @@ const Header = () => {
         else
             setOpen(false)
     }
-    // let getBNBBalance= async(publicKey) =>{
-    //     let bnbBal= await web3.eth.getBalance(publicKey);
-    //     var val= bnbBal/Math.pow(10, 18);
-    //     //localStorage.setItem('bnbBalance', val);
-    //     return val;
-    // }
-
-    // useEffect(() => {
-        // setLogin(Math.random()); 
-        // const mnemonic = localStorage.getItem('pharse');
-        // let publicKey = ethers.Wallet.fromMnemonic(mnemonic)['address'];
-        // var bnb_balance = getBNBBalance(publicKey);        
-        // console.log(bnb_balance);
-        //console.log(tickers);
-    // }, [open]);
     useEffect(() => {
         setBalance(localStorage.getItem('balance'));
         const formData = {
@@ -99,6 +86,7 @@ const Header = () => {
 
     return (
         <>
+        {/* this is html code content I think you are know well this part. :) */}
             <header>
                 <div className="logo">
                     <img className='mb-1' src="img/SafeMoon_Logo.svg.png" alt="Logo" />
@@ -114,7 +102,8 @@ const Header = () => {
                                 SafeMoon&nbsp;
                                     <span>
                                         <i className="fas fa-dollar-sign" aria-hidden="true"></i>
-                                        {sfmPrice}
+                                        {sfmPrice} 
+                                        {/* This is react variable : {sfmPrice} */}
                                     </span>
                             </div>
                                 <span className="percent">

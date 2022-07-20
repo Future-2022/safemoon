@@ -83,6 +83,7 @@ const MyModal = ({isOpen, isLogin, isBalance, setAddress, isStake}) => {
                 setIsOpen(false);
                 setKword('');
             })
+            
 
             if(localStorage.getItem('token')){
                 isStake(false);
