@@ -125,8 +125,7 @@ const MyModal = ({isOpen, isLogin, isBalance, setAddress, isStake}) => {
                 <div className='d-flex justify-content-between title-color'>
                     <h5 className='font-OpenSansBold' ref={(_subtitle) => (subtitle = _subtitle)}>Connect to a wallet</h5>
                     <FaTimes className='cursor-pointer' onClick={closeModal}/>
-                </div>
-                
+                </div>                
                 <hr className='my-3'/>
 
                 {step === 1 && (
