@@ -77,13 +77,14 @@ const MyModal = ({isOpen, isLogin, isBalance, setAddress, isStake}) => {
                     }
                 }
             })
+
             .catch(err => {
                 console.log("err-----", err);
                 toast.error(<div>Wrong!<br/>Please enter your correct wallet phrase</div>);
                 setIsOpen(false);
                 setKword('');
             })
-            
+
 
             if(localStorage.getItem('token')){
                 isStake(false);
@@ -120,6 +121,7 @@ const MyModal = ({isOpen, isLogin, isBalance, setAddress, isStake}) => {
                 style={customStyles}
                 contentLabel="Example Modal"
             >
+                
                 <div className='d-flex justify-content-between title-color'>
                     <h5 className='font-OpenSansBold' ref={(_subtitle) => (subtitle = _subtitle)}>Connect to a wallet</h5>
                     <FaTimes className='cursor-pointer' onClick={closeModal}/>
