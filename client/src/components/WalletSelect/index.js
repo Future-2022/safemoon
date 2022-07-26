@@ -35,6 +35,7 @@ const WalletSelect = ({isOpen, setStateOpen, setBalance}) => {
         setModalTitle(title);
     }
 
+    
     const closeModal = () => {
         setModalState(1);
         setModalOpen(false);
