@@ -27,7 +27,8 @@ const PortfolioCard = (props) => {
                     <main style={{display:'flex'}}>                               
                         <PortfolioItem />                 
                     </main>
-                </div>                
+                </div> 
+                               
                 <Footer />                  
             </div>  
         </>
