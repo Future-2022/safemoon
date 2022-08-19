@@ -1,5 +1,5 @@
 const express = require('express');
-const connectDB = require('./config/db');
+const connection = require('./config/mySql');
 const path = require('path');
 var bodyParser = require('body-parser');
 var app = require('express')();
@@ -21,7 +21,7 @@ var io = require('socket.io')(http, {
 });
 
 // Connect Database
-connectDB();
+connection();
 
 // Init Middleware
 app.use(express.json());
